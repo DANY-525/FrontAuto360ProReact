@@ -1,0 +1,38 @@
+.home-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .home-container h2 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .home-container p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+
+  form{
+      width: 300px;
+      height: 500px;
+      border-radius: 10px;
+      padding: 5px;
+      background-color: blue;
+  }
+  input{
+    border-radius: 2em;
+    width: 200px;
+
+    padding: 20px;
+  }
+  ul{
+    width: 500px;
+  }
+
+  table{
+    background-color: blue;
+    color: white;
+
+
+  }
