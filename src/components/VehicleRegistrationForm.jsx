@@ -3,6 +3,10 @@ import axios from 'axios';
 import './VehicleRegistrationForm.css';
 
 const VehicleRegistrationForm = () => {
+  const token = sessionStorage.getItem('authToken');
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
   const [formData, setFormData] = useState({
     licensePlate: '',
     brand: '',

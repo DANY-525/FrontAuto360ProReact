@@ -14,6 +14,8 @@ const App: React.FC = () => {
         {/* Define the Home route */}
         <Route path="/home" element={<Home />} />
 
+        <Route path="/vehicles" element={<VehicleRegistrationForm />} />
+
         {/* Redirect all other routes to /login */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
