@@ -1,23 +1,28 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './components/Login';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
-import  VehicleRegistrationForm  from './components/VehicleRegistrationForm';
+
+import Login from './components/Login';
+import VehicleRegistrationForm from './components/VehicleRegistrationForm';
+import NotFoundRedirect from './components/NotFoundRedirect';
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        {/* Define the Login route */}
+        {/* Login route */}
         <Route path="/login" element={<Login />} />
 
-        {/* Define the Home route */}
-        <Route path="/home" element={<Home />} />
+        {/* Nested routes under Home */}
+        <Route path="/" element={<Home />}>
+             {/* Independent vehicle registration route */}
+             <Route path="/vehicles/register" element={<VehicleRegistrationForm />} />
+        </Route>
 
-        <Route path="/vehicles" element={<VehicleRegistrationForm />} />
+      
 
-        {/* Redirect all other routes to /login */}
-        <Route path="*" element={<Navigate to="/login" />} />
+        {/* Handle unmatched routes */}
+        <Route path="*" element={<NotFoundRedirect />} />
       </Routes>
     </Router>
   );

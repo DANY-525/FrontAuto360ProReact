@@ -28,7 +28,7 @@ const Login = () => {
       sessionStorage.setItem('authToken', response.data.token);
 
       // Navigate to the home page after successful login
-      navigate('/home');
+      navigate('/');
     } catch (error) {
       setErrorMessage('Invalid email or password.');
       console.error('Login error:', error);

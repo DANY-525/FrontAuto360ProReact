@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import '../css/Home.css';
 
 const Home = () => {
@@ -10,18 +10,17 @@ const Home = () => {
           <h1>Auto360Pro</h1>
         </div>
         <nav className="nav-links">
-          <Link to="/home" className="nav-link">Home</Link>
-          <Link to="/vehicles" className="nav-link">Vehicles</Link>
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/vehicles/register" className="nav-link">Vehicles</Link>
           <Link to="/signout" className="nav-link">Sign Out</Link>
         </nav>
       </header>
       
       <main className="content">
-        <h2>Welcome to the Transportation App!</h2>
-        <p>Your go-to app for managing vehicles and transportation services.</p>
-        {/* Add more content as needed */}
+        {/* Aquí se renderizan las rutas anidadas */}
+        <Outlet />
       </main>
-      
+
       <footer className="footer">
         <p>&copy; 2024 TransApp. All rights reserved.</p>
       </footer>
