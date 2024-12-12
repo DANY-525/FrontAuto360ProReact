@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import VehicleRegistrationForm from './components/VehicleRegistrationForm';
 import NotFoundRedirect from './components/NotFoundRedirect';
+import ListVehicles from './components/ListVehicles'
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />}>
              {/* Independent vehicle registration route */}
              <Route path="/vehicles/register" element={<VehicleRegistrationForm />} />
+             <Route path="/vehicles/list" element={<ListVehicles />} />
         </Route>
 
       
