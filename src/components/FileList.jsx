@@ -92,20 +92,21 @@ const FileList = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>List of Files</h1>
+    <div className="max-w-4xl mx-auto p-5">
+      <h1 className="text-3xl font-bold text-center mb-6">List of Files</h1>
+      
       {loading ? (
-        <p style={styles.loadingText}>Loading files...</p>
+        <p className="text-center text-lg text-gray-500">Loading files...</p>
       ) : (
-        <div style={styles.listContainer}>
+        <div className="mt-8">
           {files.length > 0 ? (
-            <ul style={styles.fileList}>
+            <ul className="space-y-4">
               {files.map((file, index) => (
-                <li key={index} style={styles.listItem}>
-                  <span style={styles.fileName}>{file}</span>
+                <li key={index} className="flex justify-between items-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-all">
+                  <span className="text-lg font-semibold">{file}</span>
                   <button 
                     onClick={() => handleDownload(file)} 
-                    style={styles.downloadButton}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600 transition-all"
                   >
                     Download
                   </button>
@@ -113,14 +114,14 @@ const FileList = () => {
               ))}
             </ul>
           ) : (
-            <p style={styles.noFilesText}>No files available.</p>
+            <p className="text-center text-lg text-gray-500">No files available.</p>
           )}
         </div>
       )}
 
-      <h2 style={styles.chartTitle}>File Count by Date</h2>
+      <h2 className="text-2xl font-semibold text-center mt-12 mb-6">File Count by Date</h2>
       {files.length > 0 && (
-        <div style={styles.chartContainer}>
+        <div className="flex justify-center mt-4">
           <Pie data={chartData} options={{ responsive: true }} />
         </div>
       )}
@@ -128,75 +129,6 @@ const FileList = () => {
   );
 };
 
-// Estilos en línea
-const styles = {
-  container: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '20px',
-  },
-  title: {
-    fontSize: '32px',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: '20px',
-  },
-  loadingText: {
-    textAlign: 'center',
-    fontSize: '18px',
-  },
-  listContainer: {
-    marginTop: '20px',
-  },
-  fileList: {
-    listStyleType: 'none',
-    padding: '0',
-  },
-  listItem: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '10px 15px',
-    backgroundColor: '#fff',
-    borderRadius: '8px',
-    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-    marginBottom: '10px',
-    transition: 'all 0.3s ease',
-  },
-  fileName: {
-    fontSize: '18px',
-    fontWeight: '600',
-  },
-  downloadButton: {
-    backgroundColor: '#007bff',
-    color: 'white',
-    padding: '6px 12px',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontSize: '14px',
-    transition: 'background-color 0.3s',
-  },
-  downloadButtonHover: {
-    backgroundColor: '#0056b3',
-  },
-  noFilesText: {
-    textAlign: 'center',
-    fontSize: '18px',
-    color: 'gray',
-  },
-  chartTitle: {
-    textAlign: 'center',
-    fontSize: '24px',
-    fontWeight: 'bold',
-    marginTop: '40px',
-    marginBottom: '20px',
-  },
-  chartContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginTop: '20px',
-  },
-};
-
 export default FileList;
+
+
