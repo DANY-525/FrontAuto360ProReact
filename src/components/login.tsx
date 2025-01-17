@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../css/Login.css';
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate(); // Use navigate instead of useHistory
+const Login: React.FC = () => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const loginData = {
@@ -24,12 +24,9 @@ const Login = () => {
         },
       });
 
-      // Store the token in sessionStorage
       sessionStorage.setItem('authToken', response.data.token);
-
-      // Navigate to the home page after successful login
       navigate('/');
-    } catch (error) {
+    } catch (error: any) {
       setErrorMessage('Invalid email or password.');
       console.error('Login error:', error);
     }

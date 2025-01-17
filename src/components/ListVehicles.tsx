@@ -1,41 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
-const MyComponent = () => {
+interface Vehicle {
+  id: number;
+  model: string;
+  brand: string;
+  year: number;
+  // Add more fields if needed based on the API response
+}
 
+const MyComponent: React.FC = () => {
   const token = sessionStorage.getItem('authToken');
   if (!token) {
     return <Navigate to="/login" />;
   }
-  const [vehicles, setVehicles] = useState([]);
-  const [error, setError] = useState(null);
+
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchVehicles = async () => {
-      
       try {
-        const response = await axios.get('http://localhost:8080/api/vehicles', {
+        const response = await axios.get<Vehicle[]>('http://localhost:8080/api/vehicles', {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
         });
 
         setVehicles(response.data);
-      } catch (err) {
+      } catch (err: any) {
         setError(err.response?.data?.message || err.message);
       }
     };
 
     fetchVehicles();
-  }, []);
+  }, [token]);
 
   return (
     <div>
       <h1>Vehicles</h1>
       {error && <p>Error: {error}</p>}
       {!error && (
-        <table border="1" style={{ borderCollapse: 'collapse', width: '100%' }}>
+        <table style={{ borderCollapse: 'collapse', width: '100%' }}>
           <thead>
             <tr>
               <th>ID</th>
@@ -63,3 +71,4 @@ const MyComponent = () => {
 };
 
 export default MyComponent;
+

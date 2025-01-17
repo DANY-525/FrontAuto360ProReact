@@ -1,25 +1,36 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 import './VehicleRegistrationForm.css';
 
-const VehicleRegistrationForm = () => {
+interface FormData {
+  licensePlate: string;
+  brand: string;
+  model: string;
+  soatExpirationDate: string;
+  tecnoExpirationDate: string;
+  userId: string;
+}
+
+const VehicleRegistrationForm: React.FC = () => {
   const token = sessionStorage.getItem('authToken');
   if (!token) {
     return <Navigate to="/login" />;
   }
-  const [formData, setFormData] = useState({
+
+  const [formData, setFormData] = useState<FormData>({
     licensePlate: '',
     brand: '',
     model: '',
     soatExpirationDate: '',
     tecnoExpirationDate: '',
-    userId: '', // Usaremos este campo para vincular el vehículo al usuario
+    userId: '',
   });
 
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -27,10 +38,9 @@ const VehicleRegistrationForm = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Objeto a enviar al backend
     const payload = {
       brand: formData.brand,
       model: formData.model,
@@ -42,11 +52,8 @@ const VehicleRegistrationForm = () => {
       },
     };
 
-    // Token Bearer quemado
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b215c2F1cmlvIiwiaWF0IjoxNzMzMTcxNjMyLCJleHAiOjE3MzMxNzMwNzJ9.LFDuiOUlvzsqOGRu6h6DaoIFZQ-k_Cydg4q_E5t-FG4';
-
     try {
-      const response = await axios.post(
+       await axios.post(
         'http://localhost:8080/api/vehicles',
         payload,
         {
@@ -57,7 +64,6 @@ const VehicleRegistrationForm = () => {
         }
       );
 
-      // Mostrar mensaje de éxito y reiniciar formulario
       setSuccessMessage('¡Vehículo registrado exitosamente!');
       setErrorMessage('');
       setFormData({
@@ -68,7 +74,7 @@ const VehicleRegistrationForm = () => {
         tecnoExpirationDate: '',
         userId: '',
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error al registrar vehículo:', error);
       setErrorMessage('Hubo un error al registrar el vehículo. Por favor, inténtalo nuevamente.');
       setSuccessMessage('');
